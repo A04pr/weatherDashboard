@@ -1,5 +1,19 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
 .header{
     display: flex;
     justify-content: center;
 }
 
+.city-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.forecast-cards {
+    display: flex;
+    flex-direction: row;
+}
