@@ -1,10 +1,12 @@
-const apiKey = '';
+const apiKey = 'f1ebbe8b41a96fea2d1bd07f69951241';
 var cityName = 'Salt Lake City';
 var searchBtn = $("#searchBtn");
 var temperature;
 var date;
 var wind;
 var humidity;
+var icon;
+
 
 var getWeatherData = function () {
   var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=' + apiKey;
@@ -34,13 +36,9 @@ var handleWeatherData = function (data) {
       humidity = forecast.main.humidity;
       wind = forecast.wind.speed;
       date = forecast.dt_txt;
+      icon = forecast.weather[0].icon
 
       createCard();
-  
-      console.log('Day: ', date)
-      console.log('Temperature: ', temperature);
-      console.log('Humidity: ', humidity);
-      console.log('Wind: ', wind);
 
     }
   } else {
@@ -52,7 +50,7 @@ var createCard = function() {
   var card = $('<div class="card" style="width: 18rem;">'+
     '<div class="card-body">'+
       '<h5 class="card-title">' + date + '</h5>'+
-      '<img src="..." class="card-img" alt="Weather Icon">'+
+      '<img src="https://openweathermap.org/img/wn/' + icon + '@2x.png" class="card-img" alt="Weather Icon">'+
     '</div>'+
     '<ul class="list-group list-group-flush">'+
       '<li class="list-group-item">Temp: ' + temperature +  ' °F</li>'+
@@ -66,7 +64,8 @@ var createCard = function() {
 
 function search() {
   cityName = $("#cityInput").val();
-  console.log(cityName);
+  var cityTitle = $("#cityTitle");
+  cityTitle.text(cityName);
   getWeatherData();
 }
 
