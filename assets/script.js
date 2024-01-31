@@ -1,4 +1,4 @@
-const apiKey = 'f1ebbe8b41a96fea2d1bd07f69951241';
+const apiKey = '';
 var cityName = 'Seattle';
 
 var getWeatherData = function () {
@@ -21,15 +21,19 @@ var getWeatherData = function () {
 
 var handleWeatherData = function (data) {
   if (data.list && data.list.length > 0) {
-    var forecast = data.list[0];
+    for (i = 0; i <= 5; i++) {
+      var forecast = data.list[i];
     
-    var temperature = 1.8*((forecast.main.temp)-273)+32;
-    var humidity = forecast.main.humidity;
-    var wind = forecast.wind.speed;
+      var temperature = 1.8*((forecast.main.temp)-273)+32;
+      var humidity = forecast.main.humidity;
+      var wind = forecast.wind.speed;
+  
+      console.log('Day: ', i)
+      console.log('Temperature: ', temperature);
+      console.log('Humidity: ', humidity);
+      console.log('Wind: ', wind);
 
-    console.log('Temperature:', temperature);
-    console.log('Humidity:', humidity);
-    console.log('Wind:', wind);
+    }
   } else {
     console.error('Unable to retrieve weather info from the API response');
   }
