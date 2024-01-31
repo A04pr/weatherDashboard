@@ -7,6 +7,23 @@ var wind;
 var humidity;
 var icon;
 
+var addSearchHistoryButton = function(cityName) {
+  var historyContainer = $("#searchHistory");
+
+  var existingButton = historyContainer.find('.history-btn:contains("' + cityName + '")');
+
+  if (existingButton.length > 0) {
+    existingButton.closest('li').remove();
+  }
+
+  var historyButton = $('<li class="list-group-item" style="border: none"><button class="btn btn-secondary history-btn">' + cityName + '</button></li>');
+  historyContainer.append(historyButton);
+
+  historyButton.on("click", function() {
+    $("#cityInput").val(cityName);
+    search();
+  });
+};
 
 var getWeatherData = function () {
   var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=' + apiKey;
@@ -20,6 +37,7 @@ var getWeatherData = function () {
     })
     .then(data => {
       handleWeatherData(data);
+      addSearchHistoryButton(cityName);
     })
     .catch(error => {
       console.error('Error fetching weather data:', error);
@@ -39,7 +57,6 @@ var handleWeatherData = function (data) {
       icon = forecast.weather[0].icon
 
       createCard();
-
     }
   } else {
     console.error('Unable to retrieve weather info from the API response');
@@ -47,7 +64,7 @@ var handleWeatherData = function (data) {
 };
 
 var createCard = function() {
-  var card = $('<div class="card" style="width: 12rem; padding 10px; margin: 0px 10px; background: royalblue;">'+
+  var card = $('<div class="card" style="width: 12rem; padding: 10px; margin: 0px 10px; background: royalblue;">'+
     '<div class="card-body">'+
       '<h5 class="card-title">' + date + '</h5>'+
       '<img src="https://openweathermap.org/img/wn/' + icon + '@2x.png" class="card-img" alt="Weather Icon">'+
@@ -69,7 +86,11 @@ function search() {
   getWeatherData();
 }
 
-
 searchBtn.on("click", search);
+
+$("#searchHistory").on("click", ".history-btn", function() {
+  $("#cityInput").val($(this).text());
+  search();
+});
 
 getWeatherData();
