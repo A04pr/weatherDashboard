@@ -1,5 +1,6 @@
-const apiKey = 'f1ebbe8b41a96fea2d1bd07f69951241';
-var cityName = 'Seattle';
+const apiKey = '';
+var cityName = 'Salt Lake City';
+var searchBtn = $("#searchBtn");
 var temperature;
 var date;
 var wind;
@@ -24,6 +25,7 @@ var getWeatherData = function () {
 };
 
 var handleWeatherData = function (data) {
+  $(".forecast-cards").empty();
   if (data.list && data.list.length > 0) {
     for (i = 0; i < 5; i++) {
       var forecast = data.list[i*8];
@@ -61,5 +63,14 @@ var createCard = function() {
 
   $(".forecast-cards").append(card);
 };
+
+function search() {
+  cityName = $("#cityInput").val();
+  console.log(cityName);
+  getWeatherData();
+}
+
+
+searchBtn.on("click", search);
 
 getWeatherData();
