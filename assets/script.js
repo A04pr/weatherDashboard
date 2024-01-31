@@ -1,4 +1,4 @@
-const apiKey = '';
+const apiKey = 'f1ebbe8b41a96fea2d1bd07f69951241';
 var cityName = 'Salt Lake City';
 var searchBtn = $("#searchBtn");
 var temperature;
