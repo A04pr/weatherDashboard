@@ -1,19 +1,30 @@
 main {
     display: flex;
     flex-direction: row;
+    max-width: 800px;
 }
 
 .header{
+    padding-top: 18px;
+    background: skyblue;
     display: flex;
     justify-content: center;
 }
 
-.city-buttons {
-    display: flex;
-    flex-direction: column;
+.city-search {
+    padding: 30px 20px 0px 10px;
+    min-width: 225px;
+}
+
+.weatherInfo {
+    padding-left: 20px;
 }
 
 .forecast-cards {
     display: flex;
     flex-direction: row;
+}
+
+.card {
+    padding: 10px;
 }
